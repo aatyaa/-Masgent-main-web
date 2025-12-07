@@ -48,51 +48,26 @@ def display_chat_history():
 
 def get_ai_response(user_input: str) -> str:
     """
-    Get AI response using the Masgent AI backend.
-    This is a simplified version - for full streaming, would need async integration.
+    Get AI response using Google Generative AI directly.
+    Simplified version for Streamlit Cloud compatibility.
     """
     try:
-        from pydantic_ai.models.gemini import GeminiModel
-        from pydantic_ai import Agent
+        import google.generativeai as genai
         
-        # Import tools from masgent
-        import sys
-        from pathlib import Path
-        sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
+        # Configure API
+        api_key = os.environ.get('GEMINI_API_KEY')
+        if not api_key:
+            return "Error: GEMINI_API_KEY not set"
         
-        from masgent import tools
-        from masgent.utils.utils import load_system_prompts
+        genai.configure(api_key=api_key)
         
-        # Create agent if not exists
-        if st.session_state.ai_agent is None:
-            model = GeminiModel(model_name='gemini-2.5-flash')
-            system_prompt = load_system_prompts()
-            
-            st.session_state.ai_agent = Agent(
-                model=model,
-                system_prompt=system_prompt,
-                tools=[
-                    tools.list_files,
-                    tools.generate_vasp_poscar,
-                    tools.generate_vasp_inputs_from_poscar,
-                    tools.run_simulation_using_mlps,
-                    # Add more tools as needed
-                ],
-            )
+        # Create model
+        model = genai.GenerativeModel('gemini-2.5-flash')
         
-        agent = st.session_state.ai_agent
+        # Get response
+        response = model.generate_content(user_input)
         
-        # Wrap input with planning instruction
-        wrapped_input = f'Request/Confirmation: {user_input} (If this is a Request: ALWAYS output a workflow plan with chosen tools and required parameters FIRST and ask for confirmation; if this is a Confirmation: ignore the instruction above.)'
-        
-        # Fix for Streamlit event loop issue
-        import nest_asyncio
-        nest_asyncio.apply()
-        
-        # Run synchronously
-        result = asyncio.run(agent.run(wrapped_input))
-        
-        return result.output
+        return response.text
         
     except Exception as e:
         return f"Error: {str(e)}"
