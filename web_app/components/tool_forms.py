@@ -111,8 +111,9 @@ def render_tool_forms():
         is_valid, result = validate_form_data(schema_class, form_data)
         
         if not is_valid:
-            st.error("**Validation Error:**")
-            st.markdown(result)
+            st.error("❌ **Validation Error**")
+            # Display error in a more readable format
+            st.markdown(f"```\n{result}\n```")
         else:
             try:
                 # Execute tool

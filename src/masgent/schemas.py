@@ -575,7 +575,7 @@ class GenerateSupercellFromPoscar(BaseModel):
 
     scaling_matrix: str = Field(
         ...,
-        description='Scaling matrix as a string, e.g., "2 0 0; 0 2 0; 0 0 2" for a 2x2x2 supercell.'
+        description='Scaling matrix in format: "a b c; d e f; g h i" (semicolon-separated rows). Examples: "2 0 0; 0 2 0; 0 0 2" for 2x2x2, "3 0 0; 0 3 0; 0 0 1" for 3x3x1'
     )
 
     @model_validator(mode='after')
