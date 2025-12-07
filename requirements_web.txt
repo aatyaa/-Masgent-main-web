@@ -1,0 +1,25 @@
+# Masgent Web Application - Additional Requirements
+# Install with: pip install -r requirements_web.txt
+
+# Core Streamlit framework
+streamlit>=1.28.0
+
+# AI Integration
+google-generativeai>=0.3.0
+nest-asyncio>=1.5.0
+
+# 3D Visualization
+stmol>=0.0.9
+py3Dmol>=2.0.0
+
+# File watching for development
+watchdog>=3.0.0
+
+# Interactive charts
+plotly>=5.18.0
+
+# Note: This extends the main masgent dependencies.
+# Make sure masgent is installed first:
+#   pip install -e .  (from project root)
+# Then install web requirements:
+#   pip install -r requirements_web.txt
