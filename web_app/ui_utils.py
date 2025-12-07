@@ -305,13 +305,29 @@ def render_pydantic_input(field_name: str, field_info, session_path: str, key_pr
         if any(kw in field_name.lower() for kw in ['path', 'file', 'poscar', 'cif']):
             return render_file_input(field_name, field_info, session_path, key_prefix)
         else:
+            # Use smart input helper for special fields
+            from input_helpers import render_smart_text_input, FIELD_HELPERS
+            
             default = default_val if default_val is not ... else ""
-            return st.text_input(
-                label,
-                value=default,
-                help=help_text,
-                key=f"{key_prefix}_{field_name}"
-            )
+            
+            # Check if this field has a helper
+            if field_name in FIELD_HELPERS:
+                return render_smart_text_input(
+                    field_name=field_name,
+                    label=label,
+                    help_text=help_text,
+                    default=default,
+                    key=f"{key_prefix}_{field_name}"
+                )
+            else:
+                # Standard text input
+                return st.text_input(
+                    label,
+                    value=default,
+                    help=help_text,
+                    key=f"{key_prefix}_{field_name}",
+                    placeholder=f"Enter {label.lower()}..."
+                )
     
     # 8. Fallback - generic text input
     else:
