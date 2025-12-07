@@ -335,6 +335,39 @@ st.markdown("""
         font-size: 0.9375rem;
     }
     
+    /* Input Labels - Fix Overlap Issue */
+    label[data-testid="stWidgetLabel"] {
+        color: var(--text-primary) !important;
+        font-size: 0.875rem !important;
+        font-weight: 500 !important;
+        margin-bottom: 0.5rem !important;
+        display: block !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* Text Input Labels */
+    .stTextInput > label,
+    .stNumberInput > label,
+    .stSelectbox > label,
+    .stTextArea > label {
+        color: var(--text-primary) !important;
+        font-size: 0.875rem !important;
+        font-weight: 500 !important;
+        margin-bottom: 0.375rem !important;
+        display: block !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Help Text - Smaller and Lighter */
+    .stTextInput > div > div > small,
+    .stSelectbox > div > div > small {
+        color: var(--text-secondary) !important;
+        font-size: 0.75rem !important;
+        margin-top: 0.25rem !important;
+        display: block !important;
+    }
+
+    
     /* Expander - Clean Arrow */
     .streamlit-expanderHeader {
         background-color: var(--bg-card);
