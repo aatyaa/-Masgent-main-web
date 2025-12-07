@@ -55,101 +55,131 @@ st.set_page_config(
 # ============================================================================
 st.markdown("""
 <style>
-    /* Import Clean Font */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    
-    /* Global Styles */
-    * {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    }
-    
-    /* Light Theme Colors - Easy on Eyes */
+    /* ============================================
+       DESIGN SYSTEM - COLOR PALETTE & VARIABLES
+       ============================================ */
     :root {
         --primary: #4F46E5;
-        --primary-light: #818CF8;
+        --primary-hover: #4338CA;
         --secondary: #06B6D4;
         --success: #10B981;
-        --warning: #F59E0B;
         --error: #EF4444;
-        --bg-main: #F9FAFB;
-        --bg-card: #FFFFFF;
-        --text-primary: #1F2937;
-        --text-secondary: #6B7280;
-        --border: #E5E7EB;
-        --shadow: rgba(0, 0, 0, 0.05);
+        --warning: #F59E0B;
+        
+        --text-dark: #111827;
+        --text-medium: #374151;
+        --text-light: #6B7280;
+        
+        --bg-white: #FFFFFF;
+        --bg-gray-50: #F9FAFB;
+        --bg-gray-100: #F3F4F6;
+        
+        --border-light: #E5E7EB;
+        --border-medium: #D1D5DB;
+        
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        
+        --radius-sm: 6px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        
+        --spacing-xs: 0.25rem;
+        --spacing-sm: 0.5rem;
+        --spacing-md: 1rem;
+        --spacing-lg: 1.5rem;
+        --spacing-xl: 2rem;
     }
     
-    /* Hide Streamlit Branding */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
+    /* ============================================
+       BASE STYLES
+       ============================================ */
+    * {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
     
-    /* Main Background */
     .main {
-        background-color: var(--bg-main);
-        padding: 1.5rem;
+        background-color: var(--bg-gray-50);
+        padding: var(--spacing-xl);
     }
     
-    /* Sidebar - Clean White */
-    [data-testid="stSidebar"] {
-        background-color: var(--bg-card);
-        border-right: 1px solid var(--border);
-        box-shadow: 2px 0 8px var(--shadow);
-    }
-    
-    [data-testid="stSidebar"] > div:first-child {
-        padding: 1.5rem 1rem;
-    }
-    
-    /* Headers - Clean Typography */
+    /* ============================================
+       TYPOGRAPHY - CLEAR HIERARCHY
+       ============================================ */
     h1 {
-        color: var(--text-primary);
-        font-weight: 700;
+        color: var(--text-dark);
         font-size: 2rem;
-        margin-bottom: 0.5rem;
+        font-weight: 700;
         line-height: 1.2;
+        margin-bottom: var(--spacing-md);
+        letter-spacing: -0.02em;
     }
     
     h2 {
-        color: var(--text-primary);
-        font-weight: 600;
+        color: var(--text-dark);
         font-size: 1.5rem;
-        margin-bottom: 0.75rem;
+        font-weight: 600;
+        line-height: 1.3;
+        margin-bottom: var(--spacing-md);
     }
     
     h3 {
-        color: var(--text-primary);
-        font-weight: 600;
+        color: var(--text-medium);
         font-size: 1.125rem;
-        margin-bottom: 0.5rem;
+        font-weight: 600;
+        line-height: 1.4;
+        margin-bottom: var(--spacing-sm);
     }
     
-    /* Cards & Containers - Clean White */
+    p {
+        color: var(--text-medium);
+        font-size: 0.9375rem;
+        line-height: 1.6;
+    }
+    
+    /* ============================================
+       SIDEBAR - CLEAN & ORGANIZED
+       ============================================ */
+    [data-testid="stSidebar"] {
+        background-color: var(--bg-white);
+        border-right: 1px solid var(--border-light);
+    }
+    
+    [data-testid="stSidebar"] > div:first-child {
+        padding: var(--spacing-lg);
+    }
+    
+    /* ============================================
+       CARDS & CONTAINERS
+       ============================================ */
     .stExpander, .stForm {
-        background-color: var(--bg-card) !important;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 1.25rem;
-        margin: 0.75rem 0;
-        box-shadow: 0 1px 3px var(--shadow);
+        background-color: var(--bg-white) !important;
+        border: 1px solid var(--border-light) !important;
+        border-radius: var(--radius-md) !important;
+        padding: var(--spacing-lg) !important;
+        margin: var(--spacing-md) 0 !important;
+        box-shadow: var(--shadow-sm) !important;
     }
     
-    /* Buttons - Clean Primary Color */
+    /* ============================================
+       BUTTONS - CLEAR & CLICKABLE
+       ============================================ */
     .stButton > button {
         background-color: var(--primary);
         color: white;
         border: none;
-        border-radius: 6px;
-        padding: 0.625rem 1.25rem;
-        font-weight: 500;
+        border-radius: var(--radius-sm);
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
         font-size: 0.9375rem;
-        transition: all 0.2s ease;
-        box-shadow: 0 1px 2px var(--shadow);
+        transition: all 0.15s ease;
+        box-shadow: var(--shadow-sm);
+        cursor: pointer;
     }
     
     .stButton > button:hover {
-        background-color: var(--primary-light);
-        box-shadow: 0 2px 4px var(--shadow);
+        background-color: var(--primary-hover);
+        box-shadow: var(--shadow-md);
         transform: translateY(-1px);
     }
     
@@ -157,51 +187,100 @@ st.markdown("""
         transform: translateY(0);
     }
     
-    /* Primary Button Variant */
-    .stButton > button[kind="primary"] {
-        background-color: var(--secondary);
+    /* ============================================
+       FORM INPUTS - CLEAN & SPACIOUS
+       ============================================ */
+    
+    /* All Input Labels - NO OVERLAP */
+    label {
+        color: var(--text-dark) !important;
+        font-size: 0.875rem !important;
+        font-weight: 600 !important;
+        margin-bottom: var(--spacing-sm) !important;
+        display: block !important;
+        line-height: 1.5 !important;
+        padding-bottom: var(--spacing-xs) !important;
     }
     
-    .stButton > button[kind="primary"]:hover {
-        background-color: #0891B2;
-    }
-    
-    /* Input Fields - Clean & Simple */
+    /* Input Fields */
     .stTextInput > div > div > input,
     .stNumberInput > div > div > input,
     .stTextArea > div > div > textarea,
     .stSelectbox > div > div > select {
-        background-color: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        padding: 0.625rem 0.875rem;
-        color: var(--text-primary);
-        font-size: 0.9375rem;
-        transition: all 0.2s ease;
+        background-color: var(--bg-white) !important;
+        border: 1.5px solid var(--border-medium) !important;
+        border-radius: var(--radius-sm) !important;
+        padding: 0.75rem !important;
+        color: var(--text-dark) !important;
+        font-size: 0.9375rem !important;
+        line-height: 1.5 !important;
+        transition: all 0.2s ease !important;
+        margin-top: var(--spacing-xs) !important;
     }
     
+    /* Input Focus State */
     .stTextInput > div > div > input:focus,
     .stNumberInput > div > div > input:focus,
     .stTextArea > div > div > textarea:focus,
     .stSelectbox > div > div > select:focus {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        outline: none;
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1) !important;
+        outline: none !important;
     }
     
-    /* Tabs - Clean Design */
+    /* Help Text */
+    .stTextInput small,
+    .stNumberInput small,
+    .stSelectbox small {
+        color: var(--text-light) !important;
+        font-size: 0.8125rem !important;
+        margin-top: var(--spacing-xs) !important;
+        display: block !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* ============================================
+       SELECT BOXES - CLEAR DROPDOWN
+       ============================================ */
+    .stSelectbox > div > div {
+        margin-top: var(--spacing-xs) !important;
+    }
+    
+    .stSelectbox label {
+        margin-bottom: var(--spacing-sm) !important;
+    }
+    
+    /* ============================================
+       RADIO & CHECKBOX
+       ============================================ */
+    .stRadio > label,
+    .stCheckbox > label {
+        color: var(--text-dark) !important;
+        font-size: 0.875rem !important;
+        font-weight: 600 !important;
+        margin-bottom: var(--spacing-sm) !important;
+    }
+    
+    .stRadio > div,
+    .stCheckbox > div {
+        margin-top: var(--spacing-sm) !important;
+    }
+    
+    /* ============================================
+       TABS - CLEAN NAVIGATION
+       ============================================ */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 0.5rem;
+        gap: var(--spacing-sm);
         background: transparent;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 2px solid var(--border-light);
     }
     
     .stTabs [data-baseweb="tab"] {
         background-color: transparent;
         border: none;
         border-bottom: 2px solid transparent;
-        padding: 0.75rem 1rem;
-        color: var(--text-secondary);
+        padding: var(--spacing-md);
+        color: var(--text-light);
         font-weight: 500;
         transition: all 0.2s ease;
     }
@@ -214,60 +293,44 @@ st.markdown("""
     .stTabs [aria-selected="true"] {
         color: var(--primary);
         border-bottom-color: var(--primary);
+        font-weight: 600;
     }
     
-    /* Alert Messages - Soft Colors */
+    /* ============================================
+       ALERTS - SOFT COLORS
+       ============================================ */
     .stSuccess {
         background-color: #ECFDF5;
         border-left: 4px solid var(--success);
-        border-radius: 6px;
-        padding: 1rem;
+        border-radius: var(--radius-sm);
+        padding: var(--spacing-md);
         color: #065F46;
     }
     
     .stError {
         background-color: #FEF2F2;
         border-left: 4px solid var(--error);
-        border-radius: 6px;
-        padding: 1rem;
+        border-radius: var(--radius-sm);
+        padding: var(--spacing-md);
         color: #991B1B;
     }
     
     .stWarning {
         background-color: #FFFBEB;
         border-left: 4px solid var(--warning);
-        border-radius: 6px;
-        padding: 1rem;
+        border-radius: var(--radius-sm);
+        padding: var(--spacing-md);
         color: #92400E;
     }
     
-    .stInfo {
-        background-color: #EFF6FF;
-        border-left: 4px solid: #3B82F6;
-        border-radius: 6px;
-        padding: 1rem;
-        color: #1E40AF;
-    }
-    
-    /* Metrics - Clean Display */
-    [data-testid="stMetricValue"] {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--primary);
-    }
-    
-    [data-testid="stMetricLabel"] {
-        font-size: 0.875rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-    }
-    
-    /* File Uploader - Clean Border */
+    /* ============================================
+       FILE UPLOADER
+       ============================================ */
     [data-testid="stFileUploader"] {
-        background-color: var(--bg-card);
-        border: 2px dashed var(--border);
-        border-radius: 8px;
-        padding: 1.5rem;
+        background-color: var(--bg-white);
+        border: 2px dashed var(--border-medium);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-xl);
         transition: all 0.2s ease;
     }
     
@@ -276,45 +339,53 @@ st.markdown("""
         background-color: rgba(79, 70, 229, 0.02);
     }
     
-    /* Divider - Subtle */
+    /* ============================================
+       DIVIDER
+       ============================================ */
     hr {
         border: none;
         height: 1px;
-        background-color: var(--border);
-        margin: 1.5rem 0;
+        background-color: var(--border-light);
+        margin: var(--spacing-lg) 0;
     }
     
-    /* Chat Messages - Clean Cards */
+    /* ============================================
+       CHAT MESSAGES
+       ============================================ */
     .stChatMessage {
-        background-color: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 1rem;
-        margin: 0.5rem 0;
+        background-color: var(--bg-white);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-md);
+        margin: var(--spacing-sm) 0;
     }
     
-    /* Scrollbar - Minimal */
+    /* ============================================
+       SCROLLBAR - MINIMAL
+       ============================================ */
     ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
     }
     
     ::-webkit-scrollbar-track {
-        background: var(--bg-main);
+        background: var(--bg-gray-50);
     }
     
     ::-webkit-scrollbar-thumb {
-        background: var(--border);
+        background: var(--border-medium);
         border-radius: 4px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: #D1D5DB;
+        background: var(--text-light);
     }
     
-    /* Code Blocks - Subtle Background */
+    /* ============================================
+       CODE BLOCKS
+       ============================================ */
     code {
-        background-color: #F3F4F6;
+        background-color: var(--bg-gray-100);
         padding: 0.2rem 0.4rem;
         border-radius: 4px;
         color: #DC2626;
@@ -323,67 +394,52 @@ st.markdown("""
     }
     
     pre {
-        background-color: #F9FAFB;
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        padding: 1rem;
+        background-color: var(--bg-gray-50);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-sm);
+        padding: var(--spacing-md);
     }
     
-    /* Radio & Checkbox - Clean */
-    .stRadio > label, .stCheckbox > label {
-        color: var(--text-primary);
-        font-size: 0.9375rem;
-    }
-    
-    /* Input Labels - Fix Overlap Issue */
-    label[data-testid="stWidgetLabel"] {
-        color: var(--text-primary) !important;
-        font-size: 0.875rem !important;
-        font-weight: 500 !important;
-        margin-bottom: 0.5rem !important;
-        display: block !important;
-        line-height: 1.5 !important;
-    }
-    
-    /* Text Input Labels */
-    .stTextInput > label,
-    .stNumberInput > label,
-    .stSelectbox > label,
-    .stTextArea > label {
-        color: var(--text-primary) !important;
-        font-size: 0.875rem !important;
-        font-weight: 500 !important;
-        margin-bottom: 0.375rem !important;
-        display: block !important;
-        line-height: 1.4 !important;
-    }
-    
-    /* Help Text - Smaller and Lighter */
-    .stTextInput > div > div > small,
-    .stSelectbox > div > div > small {
-        color: var(--text-secondary) !important;
-        font-size: 0.75rem !important;
-        margin-top: 0.25rem !important;
-        display: block !important;
-    }
-
-    
-    /* Expander - Clean Arrow */
+    /* ============================================
+       EXPANDER
+       ============================================ */
     .streamlit-expanderHeader {
-        background-color: var(--bg-card);
-        color: var(--text-primary);
-        font-weight: 500;
+        background-color: var(--bg-white);
+        color: var(--text-dark);
+        font-weight: 600;
+        padding: var(--spacing-md);
+        border-radius: var(--radius-sm);
     }
     
-    /* Loading Spinner */
+    /* ============================================
+       METRICS
+       ============================================ */
+    [data-testid="stMetricValue"] {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+    }
+    
+    [data-testid="stMetricLabel"] {
+        font-size: 0.875rem;
+        color: var(--text-light);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    /* ============================================
+       REMOVE STREAMLIT BRANDING
+       ============================================ */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    
+    /* ============================================
+       LOADING SPINNER
+       ============================================ */
     .stSpinner > div {
         border-top-color: var(--primary) !important;
-    }
-    
-    /* Caption Text */
-    .caption {
-        color: var(--text-secondary);
-        font-size: 0.875rem;
     }
 </style>
 """, unsafe_allow_html=True)
