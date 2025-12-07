@@ -1,20 +1,6 @@
-# Minimal requirements for Streamlit Cloud deployment
-# Only essential packages to avoid build issues
+# Ultra-minimal requirements for Streamlit Cloud
+# Only packages that are guaranteed to work
 
-# Core framework
-streamlit>=1.28.0
-
-# AI Integration
-google-generativeai>=0.3.0
-
-# 3D Visualization
-py3Dmol>=2.0.0
-
-# Charts
-plotly>=5.18.0
-
-# Basic materials science (lightweight versions)
-ase>=3.22.0
-
-# Note: Removed pymatgen and mp-api to avoid compilation issues
-# These can be added back if needed with proper build configuration
+streamlit
+google-generativeai
+plotly
